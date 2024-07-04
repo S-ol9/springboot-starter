@@ -13,6 +13,7 @@ public class QuickController {
 
     @Autowired
     private QuickService quickService;
+
     @GetMapping("/dummy")
     public String dummy() {
         log.info("dummy");
@@ -44,7 +45,7 @@ public class QuickController {
         log.info("item: {}", item);
 
         boolean b = quickService.registerItem(item);
-        if(b == true) {
+        if (b == true) {
             ResponseDto responseDto = new ResponseDto();
             responseDto.setMessage("ok");
             return responseDto;
@@ -52,5 +53,11 @@ public class QuickController {
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage("fail");
         return responseDto;
+    }
+
+    @GetMapping("/item")
+    public ItemDto getItem(@RequestParam("id") String id) {
+        ItemDto res = quickService.getItemById(id);
+        return res;
     }
 }
